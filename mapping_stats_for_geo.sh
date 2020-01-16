@@ -4,6 +4,8 @@ WORK_DIR=$(dirname $PWD)
 BAM_FILES="${WORK_DIR}/mapping2/*.sorted.bam"
 READ1_FILES="${WORK_DIR}/data/*R1*.gz"
 
+export LC_NUMERIC="en_US.UTF-8"
+
 printf "file name 1\tfile name 2\taverage insert size\tstandard deviation\n" >| mapping_stats_for_geo.txt
 
 
