@@ -10,7 +10,7 @@ import sys, os, re
 from collections import defaultdict
 from Bio import SeqIO
 from Bio.Seq import Seq
-from artemis_string import *
+#from artemis_string import *
 
 def main():
     parser = argparse.ArgumentParser(description='Extract gene fasta file from gff and genome file')
@@ -67,15 +67,17 @@ def main():
                     description = re.search("description=(.*?)$", line).group(1)
                 else:
                     description = re.search("description=(.*?);", line).group(1)
-                description = filter_string(description)
-            if type == feature:            
+                #description = filter_string(description)
+            if type == feature:
+                geneid = re.search("ID=(.*?);", line).group(1)
+                description=''
                 na_seq = get_na_seq(genomes, scfid, start, end, strand)
-                aa_seq = get_aa_seq(genomes, scfid, start, end, strand)
+                aa_seq = get_aa_seq(genomes, scfid, start, end, strand, code=code)
                 
-                print >>nt_outh, ">%s %s" %(geneid, description)
-                print >>nt_outh, na_seq
-                print >>aa_outh, ">%s %s" %(geneid, description)
-                print >>aa_outh, aa_seq
+                nt_outh.write(">%s %s\n" %(geneid, description))
+                nt_outh.write(str(na_seq)+'\n')
+                aa_outh.write(">%s %s\n" %(geneid, description))
+                aa_outh.write(str(aa_seq) + '\n')
             
 if __name__ == "__main__":
     main()
