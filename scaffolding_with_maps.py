@@ -52,7 +52,7 @@ prev_real_chr_end = 0
 prev_chr = ""
 with open(placement_file, 'r') as ph:
     for line in ph:
-        if not re.match("Giardia", line):
+        if not re.match("Spironucleus", line):
             continue
         
         arr = line.split("\t")
